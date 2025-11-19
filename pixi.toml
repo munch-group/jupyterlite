@@ -6,11 +6,11 @@ platforms = ["osx-arm64"]
 version = "0.1.0"
 
 [tasks]
-clean="rm -rf dist ; rm -rf _output ; rm -rf jupyterlite/.cache ; rm -f .jupyterlite.doit.db"
-init="jupyter lite init --contents content --output-dir dist --lite-dir jupyterlite"
-build ="jupyter lite build --contents content --output-dir dist --lite-dir jupyterlite --piplite-wheels=https://pypi.org/project/matplotlib,https://pypi.org/project/numpy,https://pypi.org/project/scipy,https://pypi.org/project/ipywidgets,https://pypi.org/project/tqdm,https://pypi.org/project/multiprocess"
-index="jupyter lite pip index"
-serve = { cmd="jupyter lite serve --contents content --output-dir dist --lite-dir jupyterlite --port 8889", depends-on=["index", "build", "init", "clean"] }
+clean = { cmd="rm -rf dist ; rm -rf _output ; rm -rf jupyterlite/.cache ; rm -f .jupyterlite.doit.db" }
+init = { cmd="jupyter lite init --contents content --output-dir dist --lite-dir jupyterlite", depends-on=["clean"] }
+build = { cmd="jupyter lite build --contents content --output-dir dist --lite-dir jupyterlite --piplite-wheels=https://pypi.org/project/matplotlib,https://pypi.org/project/numpy,https://pypi.org/project/scipy,https://pypi.org/project/ipywidgets,https://pypi.org/project/tqdm,https://pypi.org/project/multiprocess", depends-on=["init"] }
+index = { cmd="jupyter lite pip index", depends-on=["build"] }
+serve = { cmd="jupyter lite serve --contents content --output-dir dist --lite-dir jupyterlite --port 8889", depends-on=["index"] }
 
 [dependencies]
 jupyterlite-core = ">=0.6.4,<0.7"
