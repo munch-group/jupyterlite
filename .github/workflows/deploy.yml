@@ -24,7 +24,7 @@ jobs:
       - name: Build the JupyterLite site
         run: |
           cp README.md content
-          jupyter lite build --contents content --output-dir dist --lite-dir jupyterlite
+          jupyter lite build --contents content --output-dir dist --lite-dir jupyterlite --piplite-wheels=https://pypi.org/project/matplotlib,https://pypi.org/project/seaborn,https://pypi.org/project/numpy,https://pypi.org/project/scipy,https://pypi.org/project/ipywidgets,https://pypi.org/project/tqdm
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
