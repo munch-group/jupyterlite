@@ -2,7 +2,7 @@
 authors = ["Kasper Munch <kaspermunch@birc.au.dk>"]
 channels = ["conda-forge", "munch-group"]
 name = "jupyterlite"
-platforms = ["osx-arm64"]
+platforms = ["osx-arm64", "linux-64"]
 version = "0.1.0"
 
 [tasks]
