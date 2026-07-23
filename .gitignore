@@ -114,3 +114,6 @@ dmypy.json
 # jupyterlite
 *.doit.db
 _output
+
+# course notebooks synced in at build time by ../scripts/build-demo.sh
+content/course/
