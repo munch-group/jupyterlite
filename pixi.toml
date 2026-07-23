@@ -18,4 +18,10 @@ libarchive = ">=3.8.2,<4"
 jupyterlab_server = ">=2.28.0,<3"
 jupyterlite-pyodide-kernel = ">=0.6.1,<0.7"
 jupyterlab-filesystem-access = ">=0.7.0,<0.8"
+# Front-end (JupyterLab federated) extension that actually renders
+# ipywidgets/anywidget output. Without this, kernel-side widget code runs
+# fine (comm opens, state syncs) but the UI has no renderer for the
+# application/vnd.jupyter.widget-view+json mimetype, so display() falls
+# back to a plain repr() of the widget object.
+jupyterlab_widgets = ">=3.0,<4"
 
