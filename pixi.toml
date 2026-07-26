@@ -7,7 +7,12 @@ version = "0.1.0"
 
 [tasks]
 clean = { cmd="rm -rf dist ; rm -rf _output ; rm -rf jupyterlite/.cache ; rm -f .jupyterlite.doit.db" }
-init = { cmd="jupyter lite init --contents content --output-dir dist --lite-dir jupyterlite", depends-on=["clean"] }
+# Repairs a pixi env whose baked-in interpreter shebangs went stale because
+# this submodule/repo was moved or freshly cloned to a new absolute path
+# (pixi's lock-file hash alone doesn't catch this). Runs before every
+# init/build so the fix is automatic; `pixi run doctor` also works standalone.
+doctor = { cmd="bash scripts/doctor.sh" }
+init = { cmd="jupyter lite init --contents content --output-dir dist --lite-dir jupyterlite", depends-on=["clean", "doctor"] }
 build = { cmd="jupyter lite build --contents content --output-dir dist --lite-dir jupyterlite --piplite-wheels=https://pypi.org/project/matplotlib,https://pypi.org/project/numpy,https://pypi.org/project/scipy,https://pypi.org/project/ipywidgets,https://pypi.org/project/tqdm,https://pypi.org/project/multiprocess", depends-on=["init"] }
 index = { cmd="jupyter lite pip index", depends-on=["build"] }
 serve = { cmd="jupyter lite serve --contents content --output-dir dist --lite-dir jupyterlite --port 8889", depends-on=["index"] }
